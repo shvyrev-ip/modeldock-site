@@ -1,0 +1,323 @@
+<title>ModelDock</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Literata:opsz,wght@7..72,600;7..72,700&display=swap">
+
+<style>
+:root{
+  --paper:#EDF0EF;
+  --surface:#F8FAF9;
+  --ink:#0F1D1C;
+  --ink-soft:#3A4A48;
+  --muted:#667975;
+  --line:#C9D4D1;
+  --line-soft:#DDE4E2;
+  --accent:#8A5E1C;
+  --accent-bright:#B8863B;
+  --accent-wash:#EBE2D2;
+  --outside:#96A4A1;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0A1413;
+    --surface:#101E1C;
+    --ink:#E7EEEC;
+    --ink-soft:#BFCECB;
+    --muted:#8CA09C;
+    --line:#223835;
+    --line-soft:#1A2C2A;
+    --accent:#E0B269;
+    --accent-bright:#EFC888;
+    --accent-wash:#231C11;
+    --outside:#5E706D;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0A1413;
+  --surface:#101E1C;
+  --ink:#E7EEEC;
+  --ink-soft:#BFCECB;
+  --muted:#8CA09C;
+  --line:#223835;
+  --line-soft:#1A2C2A;
+  --accent:#E0B269;
+  --accent-bright:#EFC888;
+  --accent-wash:#231C11;
+  --outside:#5E706D;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Golos Text","Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+
+/* ---------- шапка ---------- */
+.top{
+  display:flex;align-items:baseline;justify-content:space-between;gap:24px;
+  padding:28px 0 0;
+}
+.mark{
+  font-family:Literata,Georgia,serif;font-weight:700;font-size:20px;
+  letter-spacing:-0.01em;color:var(--ink);
+}
+.mark span{color:var(--accent)}
+.top .meta{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.13em;color:var(--muted);
+}
+
+/* ---------- герой ---------- */
+.hero{padding:clamp(56px,11vh,104px) 0 clamp(40px,7vh,72px)}
+.hero h1{
+  font-family:Literata,Georgia,serif;font-weight:700;
+  font-size:clamp(34px,5.6vw,60px);line-height:1.08;letter-spacing:-0.025em;
+  margin:0 0 24px;max-width:19ch;text-wrap:balance;
+}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{
+  font-size:clamp(18px,2.1vw,21px);line-height:1.55;color:var(--ink-soft);
+  max-width:52ch;margin:0;
+}
+.hero .status{
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:28px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.14em;color:var(--accent);
+  border:1px solid var(--line);border-radius:2px;padding:6px 12px;
+  background:var(--surface);
+}
+.dot{width:6px;height:6px;background:var(--accent-bright);border-radius:50%;flex:none}
+
+/* ---------- секции ---------- */
+section{border-top:1px solid var(--line-soft);padding:clamp(38px,6vh,60px) 0}
+.grid{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:900px){
+  .grid{grid-template-columns:11rem 1fr;gap:0 56px;align-items:start}
+}
+.eyebrow{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.14em;color:var(--muted);
+  padding-top:6px;
+}
+.body-col{max-width:64ch;display:flex;flex-direction:column;gap:18px}
+.body-col p{margin:0}
+h2{
+  font-family:Literata,Georgia,serif;font-weight:600;font-size:26px;
+  line-height:1.25;letter-spacing:-0.015em;margin:0 0 4px;text-wrap:balance;
+}
+
+/* ---------- поток ---------- */
+.flow{display:flex;flex-direction:column;gap:0;margin:0;padding:0;list-style:none;counter-reset:step}
+.flow li{
+  counter-increment:step;position:relative;padding:18px 0 18px 52px;
+  border-bottom:1px solid var(--line-soft);
+}
+.flow li:first-child{border-top:1px solid var(--line-soft)}
+.flow li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;left:0;top:19px;
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;
+  color:var(--accent);letter-spacing:0.06em;
+}
+.flow strong{display:block;font-weight:600;color:var(--ink)}
+.flow span{color:var(--ink-soft)}
+
+/* ---------- схема ---------- */
+.diagram-shell{overflow-x:auto;padding:4px 0 8px}
+.diagram{min-width:560px;width:100%;height:auto;display:block}
+.d-frame{fill:none;stroke:var(--accent);stroke-width:1.5}
+.d-box{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.d-label{
+  font-family:"Golos Text",sans-serif;font-size:12.5px;fill:var(--ink);
+}
+.d-mono{
+  font-family:"JetBrains Mono",monospace;font-size:10px;fill:var(--accent);
+  text-transform:uppercase;letter-spacing:0.14em;
+}
+.d-out{font-family:"Golos Text",sans-serif;font-size:12.5px;fill:var(--outside)}
+.d-link{fill:none;stroke:var(--line);stroke-width:1}
+.d-block{fill:none;stroke:var(--outside);stroke-width:1.2;stroke-dasharray:4 3}
+.d-cross{stroke:var(--outside);stroke-width:1.2}
+.caption{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--muted);letter-spacing:0.06em;margin:10px 0 0;
+}
+@media (prefers-reduced-motion:no-preference){
+  .d-frame{stroke-dasharray:2000;stroke-dashoffset:2000;animation:draw 1.5s cubic-bezier(.4,0,.2,1) .25s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+}
+
+/* ---------- таблицы/списки ---------- */
+.specs{display:grid;grid-template-columns:1fr;gap:0}
+.specs div{
+  display:flex;flex-wrap:wrap;gap:6px 20px;justify-content:space-between;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);
+}
+.specs div:first-child{border-top:1px solid var(--line-soft)}
+.specs dt,.specs .k{color:var(--ink-soft);margin:0}
+.specs .v{
+  margin:0;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:13px;
+  color:var(--ink);font-variant-numeric:tabular-nums;text-align:right;
+}
+.tags{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.tags li{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12px;
+  border:1px solid var(--line);border-radius:2px;padding:5px 10px;
+  background:var(--surface);color:var(--ink-soft);
+}
+
+/* ---------- подвал ---------- */
+footer{border-top:1px solid var(--line);padding:34px 0 56px;margin-top:12px}
+.foot-in{display:flex;flex-wrap:wrap;gap:14px 32px;justify-content:space-between;align-items:baseline}
+footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid var(--accent-wash)}
+footer a:hover{border-bottom-color:var(--accent)}
+footer a:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+.fine{
+  font-family:"JetBrains Mono",ui-monospace,monospace;font-size:11px;
+  text-transform:uppercase;letter-spacing:0.13em;color:var(--muted);
+}
+</style>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="mark">Model<span>Dock</span></div>
+    <div class="meta">Стадия: MVP · 2026</div>
+  </header>
+
+  <div class="hero">
+    <div class="status"><span class="dot"></span>Разворачивается в вашем контуре</div>
+    <h1>Управление AI&#8209;моделями <em>внутри</em> инфраструктуры компании.</h1>
+    <p class="sub">ModelDock — приватная платформа: реестр моделей, запуск и сервинг в собственном кластере заказчика. Данные и веса не покидают периметр.</p>
+  </div>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Проблема</div>
+      <div class="body-col">
+        <h2>AI нужен, а отдавать данные наружу нельзя</h2>
+        <p>Компании в России и СНГ хотят внедрять AI, но не могут отправлять свои данные в публичные зарубежные AI-сервисы.</p>
+        <p>Им нужен контроль над инфраструктурой и данными, понятное разграничение доступа для разных команд, стабильный API для внутренних приложений и прозрачная связь между действием пользователя и тем, что реально произошло в системе.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Решение</div>
+      <div class="body-col">
+        <h2>Путь модели — от хранилища до работающего сервиса</h2>
+        <ol class="flow">
+          <li><strong>Регистрация модели</strong><span>Пользователь выбирает модель из Model Garden или S3-совместимого хранилища.</span></li>
+          <li><strong>Команда в рантайм</strong><span>Backend принимает команду и публикует её в рантайме платформы.</span></li>
+          <li><strong>Сервинг</strong><span>Платформа обеспечивает сервинг — запускает модель в кластере.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Контур</div>
+      <div class="body-col" style="max-width:none">
+        <h2>Что где находится</h2>
+        <div class="diagram-shell">
+          <svg class="diagram" viewBox="0 0 720 330" role="img"
+               aria-label="Схема: внутри контура заказчика находятся ModelDock, реестр моделей, хранилище S3, база данных, брокер событий и кластер сервинга; связь с публичными AI-облаками снаружи перечёркнута.">
+            <rect class="d-frame" x="14" y="34" width="512" height="278" rx="3"></rect>
+            <text class="d-mono" x="26" y="26">Контур заказчика</text>
+
+            <rect class="d-box" x="46" y="66" width="188" height="52" rx="2"></rect>
+            <text class="d-label" x="62" y="89">ModelDock</text>
+            <text class="d-label" x="62" y="107" opacity="0.65">API и управление доступом</text>
+
+            <rect class="d-box" x="46" y="150" width="188" height="44" rx="2"></rect>
+            <text class="d-label" x="62" y="177">Реестр моделей</text>
+
+            <rect class="d-box" x="46" y="226" width="188" height="44" rx="2"></rect>
+            <text class="d-label" x="62" y="253">Хранилище S3 · веса</text>
+
+            <rect class="d-box" x="300" y="66" width="196" height="44" rx="2"></rect>
+            <text class="d-label" x="316" y="93">Брокер событий</text>
+
+            <rect class="d-box" x="300" y="142" width="196" height="44" rx="2"></rect>
+            <text class="d-label" x="316" y="169">PostgreSQL · состояние</text>
+
+            <rect class="d-box" x="300" y="218" width="196" height="60" rx="2"></rect>
+            <text class="d-label" x="316" y="245">Кластер · сервинг</text>
+            <text class="d-label" x="316" y="263" opacity="0.65">запуск моделей</text>
+
+            <path class="d-link" d="M234 92 H300"></path>
+            <path class="d-link" d="M234 172 H268 V88 H300"></path>
+            <path class="d-link" d="M234 248 H268 V248 H300"></path>
+            <path class="d-link" d="M398 110 V142"></path>
+            <path class="d-link" d="M398 186 V218"></path>
+
+            <rect class="d-block" x="586" y="140" width="120" height="66" rx="3"></rect>
+            <text class="d-out" x="600" y="168">Публичные</text>
+            <text class="d-out" x="600" y="186">AI-облака</text>
+            <path class="d-link" d="M526 173 H586" opacity="0.45"></path>
+            <path class="d-cross" d="M548 165 L562 181"></path>
+            <path class="d-cross" d="M562 165 L548 181"></path>
+          </svg>
+        </div>
+        <p class="caption">Данные, веса моделей и состояние остаются внутри периметра.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Для кого</div>
+      <div class="body-col">
+        <h2>Кому это нужно</h2>
+        <div class="specs">
+          <div><p class="k">Компании, внедряющие AI внутри себя</p><p class="v">Собственный контур</p></div>
+          <div><p class="k">Интеграторы и агентства, делающие AI-решения для клиентов</p><p class="v">Развёртывание у заказчика</p></div>
+          <div><p class="k">Enterprise-команды, включая регулируемые отрасли</p><p class="v">Требования по данным</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Стек</div>
+      <div class="body-col">
+        <h2>На чём построено</h2>
+        <ul class="tags">
+          <li>Kubernetes</li>
+          <li>Kafka-совместимый брокер</li>
+          <li>PostgreSQL</li>
+          <li>S3-совместимое хранилище</li>
+        </ul>
+        <p>Платформа ставится в существующий кластер заказчика и не требует внешних управляемых сервисов.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="grid">
+      <div class="eyebrow">Статус</div>
+      <div class="body-col">
+        <h2>Где проект сейчас</h2>
+        <p>MVP. Ядро платформы и манифесты развёртывания готовы. Разворачиваем пилотный стенд, чтобы показывать продукт заказчикам.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="foot-in">
+      <div class="mark">Model<span>Dock</span></div>
+      <p class="fine">Связаться — <a href="mailto:ЗАМЕНИТЕ@ПОЧТА">ЗАМЕНИТЕ@ПОЧТА</a></p>
+      <p class="fine">2026</p>
+    </div>
+  </footer>
+
+</div>
